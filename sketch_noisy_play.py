@@ -11,7 +11,7 @@ class NoisyPlaySketch(vsketch.SketchClass):
     max_delta = vsketch.Param(0.1)
 
     def draw(self, vsk: vsketch.Vsketch) -> None:
-        vsk.size("a6", landscape=True, center=False)
+        vsk.size("a6", landscape=False, center=False)
         scale = "px"
         vsk.scale(scale)
         factor = 1 / vp.convert_length(scale)
@@ -22,7 +22,7 @@ class NoisyPlaySketch(vsketch.SketchClass):
         z = 0
         for y_offset in range(0, math.ceil(height), self.y_delta):
             pts = LineString([(xs[i],ys[i]) for i in range(len(xs))])
-            zs = [z * i for i in range(len(xs))]
+            zs = [z for i in range(len(xs))]
             z += 1
             vsk.geometry(pts)
             noise = vsk.noise(xs,ys,zs,grid_mode=False)
@@ -35,5 +35,5 @@ class NoisyPlaySketch(vsketch.SketchClass):
         vsk.vpype("linemerge linesimplify reloop linesort")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":      # 
     NoisyPlaySketch.display()
