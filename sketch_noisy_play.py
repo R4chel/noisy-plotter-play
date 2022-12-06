@@ -22,9 +22,9 @@ class NoisyPlaySketch(vsketch.SketchClass):
         z = 0
         for y_offset in range(0, math.ceil(height), self.y_delta):
             pts = LineString([(xs[i],ys[i]) for i in range(len(xs))])
+            vsk.geometry(pts)
             zs = [z for i in range(len(xs))]
             z += 1
-            vsk.geometry(pts)
             noise = vsk.noise(xs,ys,zs,grid_mode=False)
             ys = [ys[i] + vsk.map(noise[i],0,1,-self.max_delta, self.max_delta) +self.y_delta for i in range(len(ys))]
 
